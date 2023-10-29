@@ -18,11 +18,6 @@ public class Periodo {
     private String code;
 
     public Periodo(){}
-    public Periodo(Long id, String name, String code) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-    }
 
     public Long getId() { return id; }
 
