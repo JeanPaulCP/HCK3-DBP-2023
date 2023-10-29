@@ -1,6 +1,5 @@
 package com.example.hck3dbp.courseassessment;
 import com.example.hck3dbp.course.Course;
-import com.example.hck3dbp.coursetype.CourseType;
 import com.example.hck3dbp.periodo.Periodo;
 import jakarta.persistence.Column;
 import jakarta.persistence.*;
@@ -12,20 +11,31 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator =
-        ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // Esta línea es
+// para evitar el error de recursión infinita al momento de hacer el GET
+// La recursión infinita es porque se está haciendo un GET de un curso y en el curso hay un atributo que es
+// de tipo CourseAssessment, entonces al hacer el GET de un curso, se hace el GET de CourseAssessment y en
+// CourseAssessment hay un atributo que es de tipo Course, entonces al hacer el GET de CourseAssessment, se
+// hace el GET de Course y en Course hay un atributo que es de tipo CourseAssessment, entonces al hacer el
+// GET de Course, se hace el GET de CourseAssessment y en CourseAssessment hay un atributo que es de tipo
+// Course, entonces al hacer el GET de CourseAssessment, se hace el GET de Course y así sucesivamente.
 @Table(name = "courseAssessment")
 public class CourseAssessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "courseAssessment_id", nullable = false)
     private Long id;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // FetchType.LAZY es para que no se cargue
+    // toda la información de una vez en la BD y CascadeType.ALL es para que se actualice la información en
+    // todas las tablas que tengan relación con esta tabla
+    @JoinTable(name = "coursetype_Course",
+            joinColumns = @JoinColumn(name = "courseAssessment_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private Course course;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
-    private Course course; //varias evaluaciones tiene un curso.
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "periodo_id")
+    @JoinTable(name = "coursetype_Course",
+            joinColumns = @JoinColumn(name = "courseAssessment_id"),
+            inverseJoinColumns = @JoinColumn(name = "periodo_id"))
     private Periodo periodo;
     private String title;
     private String tipoNota;

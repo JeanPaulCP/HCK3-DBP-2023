@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.awt.geom.Area;
-
-//import java.awt.Area;
 
 @Entity
 @Table(name = "student")
@@ -14,12 +11,10 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id", nullable = false)
-
     private Long id;
     private String name;
     private String email;
     private String code;
-    //private Area area;
 
     public Student(){}
     public Student(Long id, String name, String email, String code) {

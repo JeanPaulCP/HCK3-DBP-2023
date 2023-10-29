@@ -1,4 +1,4 @@
 package com.example.hck3dbp.coursetype;
 
-public class CourseController {
+public class CourseTypeService {
 }

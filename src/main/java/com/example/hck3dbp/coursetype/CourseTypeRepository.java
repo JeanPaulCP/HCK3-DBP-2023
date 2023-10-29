@@ -1,4 +1,7 @@
 package com.example.hck3dbp.coursetype;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CourseTypeRepository {
+@Repository
+public interface CourseTypeRepository extends JpaRepository<CourseType,Long>{
 }

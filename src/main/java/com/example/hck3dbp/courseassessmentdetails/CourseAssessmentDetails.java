@@ -11,8 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator =
-        ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "courseAssessmentDetails")
 public class CourseAssessmentDetails {
     @Id
@@ -23,17 +22,22 @@ public class CourseAssessmentDetails {
     private String score;
     private String section;
     private String sectionGroup;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "CourseAssessmentDetails_Student",
+            joinColumns = @JoinColumn(name = "courseAssessmentDetails_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Student student;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "professor_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "CourseAssessmentDetails_Professor",
+            joinColumns = @JoinColumn(name = "courseAssessmentDetails_id"),
+            inverseJoinColumns = @JoinColumn(name = "professor_id"))
     private Professor professor;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "courseAssessment_id")
+    @JoinTable(name = "CourseAssessmentDetails_CourseAssessment",
+            joinColumns = @JoinColumn(name = "courseAssessmentDetails_id"),
+            inverseJoinColumns = @JoinColumn(name = "courseAssessment_id"))
     private CourseAssessment courseAssessment;
 
     public CourseAssessmentDetails(){}

@@ -27,20 +27,24 @@ public class Course {
     //private Area area; no deja usar Area
     private String HRGroup;
     private Integer cycle;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "coursetype_id")
-    private CourseType courseTypes;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // FetchType.LAZY es para que no se cargue
+    // toda la información de una vez en la BD cuando se haga el GET. Por ejemplo, si se hace un GET de un curso,
+    // no se cargará toda la información de los periodos, solo se cargará la información del periodo que se pidió
+    @JoinTable(name = "coursetype_Course",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "coursetype_id"))
+    private CourseType courseType;
     private String VRGroup;
 
     public Course(){}
-    public Course(Long id, Integer credits, String name, String code, String HRGroup, Integer cycle, CourseType courseTypes, String VRGroup) {
+    public Course(Long id, Integer credits, String name, String code, String HRGroup, Integer cycle, CourseType courseType, String VRGroup) {
         this.id = id;
         this.credits = credits;
         this.name = name;
         this.code = code;
         this.HRGroup = HRGroup;
         this.cycle = cycle;
-        this.courseTypes = courseTypes;
+        this.courseType = courseType;
         this.VRGroup = VRGroup;
     }
 
@@ -50,7 +54,7 @@ public class Course {
     public String getCode() { return code; }
     public String getHRGroup() { return HRGroup; }
     public Integer getCycle() { return cycle; }
-    public CourseType getCourseTypes() { return courseTypes; }
+    public CourseType getCourseType() { return courseType; }
     public String getVRGroup() { return VRGroup; }
 
     public void setId(Long id) { this.id = id; }
@@ -59,6 +63,6 @@ public class Course {
     public void setCode(String code) { this.code = code; }
     public void setHRGroup(String HRGroup) { this.HRGroup = HRGroup;}
     public void setCycle(Integer cycle) { this.cycle = cycle; }
-    public void setCourseTypes(CourseType courseTypes) { this.courseTypes = courseTypes; }
+    public void setCourseType(CourseType courseType) { this.courseType = courseType; }
     public void setVRGroup(String VRGroup) { this.VRGroup = VRGroup; }
 }
