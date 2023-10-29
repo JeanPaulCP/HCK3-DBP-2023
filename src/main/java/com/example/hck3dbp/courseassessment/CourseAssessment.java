@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // Esta línea es
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 // hace el GET de Course y en Course hay un atributo que es de tipo CourseAssessment, entonces al hacer el
 // GET de Course, se hace el GET de CourseAssessment y en CourseAssessment hay un atributo que es de tipo
 // Course, entonces al hacer el GET de CourseAssessment, se hace el GET de Course y así sucesivamente.
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 @Table(name = "courseAssessment")
 public class CourseAssessment {
     @Id
