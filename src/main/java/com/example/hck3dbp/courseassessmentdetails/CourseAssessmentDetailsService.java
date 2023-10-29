@@ -1,9 +1,4 @@
 package com.example.hck3dbp.courseassessmentdetails;
-
-import com.example.hck3dbp.courseassessmentdetails.CourseAssessmentDetailsRepository;
-//no es necesario ponerlo xq ambas clases se encuentran en la misma carpeta
-//solo es necesario ponerlo cuando esten en carpetas diferentes
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +10,23 @@ public class CourseAssessmentDetailsService{
     @Autowired
     private CourseAssessmentDetailsRepository courseAssessmentDetailsRepository;
 
-    public List<CourseAssessmentDetails> get_All(){
+    public List<CourseAssessmentDetails> get_All() {
         return courseAssessmentDetailsRepository.findAll();
     }
 
-    public CourseAssessmentDetails saveTodo(CourseAssessmentDetails courseAssessmentDetails){
-        return courseAssessmentDetailsRepository.save(courseAssessmentDetails);
+    public void saveCourseAssessmentDetails(CourseAssessmentDetails courseAssessmentDetails){
+        courseAssessmentDetailsRepository.save(courseAssessmentDetails);
     }
 
     public Optional<CourseAssessmentDetails> update(Long id, CourseAssessmentDetails courseAssessmentDetails){
+
         Optional<CourseAssessmentDetails> optionalCourseAssessmentDetails = courseAssessmentDetailsRepository.findById(id);
+
         if(optionalCourseAssessmentDetails.isPresent()){
+
             CourseAssessmentDetails existing = optionalCourseAssessmentDetails.get();
-            existing.setScore(courseAssessmentDetails.getScore());
+
+            existing.setScore(courseAssessmentDetails.getScore()); // existing sirve para guardar los datos que ya existen en la bdd
             existing.setSection(courseAssessmentDetails.getSection());
             existing.setSectionGroup(courseAssessmentDetails.getSectionGroup());
             existing.setStudent(courseAssessmentDetails.getStudent());
@@ -36,13 +35,18 @@ public class CourseAssessmentDetailsService{
 
             courseAssessmentDetailsRepository.save(existing);
         }
+
         return optionalCourseAssessmentDetails;
     }
 
-    public Optional<CourseAssessmentDetails> path(Long id, CourseAssessmentDetails courseAssessmentDetails){
-        Optional<CourseAssessmentDetails> optionalCourseAssessmentDetails =courseAssessmentDetailsRepository.findById(id);
+    public Optional<CourseAssessmentDetails> patch(Long id, CourseAssessmentDetails courseAssessmentDetails){
+
+        Optional<CourseAssessmentDetails> optionalCourseAssessmentDetails = courseAssessmentDetailsRepository.findById(id);
+
         if(optionalCourseAssessmentDetails.isPresent()){
+
             CourseAssessmentDetails existing = optionalCourseAssessmentDetails.get();
+
             if (courseAssessmentDetails.getScore() != null) {
                 existing.setScore(courseAssessmentDetails.getScore());
             }
@@ -64,11 +68,14 @@ public class CourseAssessmentDetailsService{
 
             courseAssessmentDetailsRepository.save(existing);
         }
+
         return optionalCourseAssessmentDetails;
     }
 
-    public Optional<CourseAssessmentDetails> delete(Long id){
+    public Optional<CourseAssessmentDetails> delete(Long id) {
+
         Optional<CourseAssessmentDetails> optionalCourseAssessmentDetails = courseAssessmentDetailsRepository.findById(id);
+
         if(optionalCourseAssessmentDetails.isPresent()){
             CourseAssessmentDetails existing = optionalCourseAssessmentDetails.get();
             courseAssessmentDetailsRepository.delete(existing);
@@ -77,7 +84,7 @@ public class CourseAssessmentDetailsService{
         return optionalCourseAssessmentDetails;
     }
 
-    public Optional<CourseAssessmentDetails> get_id(Long id){
+    public Optional<CourseAssessmentDetails> get_id(Long id) {
         return courseAssessmentDetailsRepository.findById(id);
     }
 
