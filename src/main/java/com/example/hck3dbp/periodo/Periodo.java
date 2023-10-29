@@ -13,7 +13,6 @@ public class Periodo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "periodo_id", nullable = false)
-
     private Long id;
     private String name;
     private String code;
