@@ -1,4 +1,4 @@
 package com.example.hck3dbp.courseassessment;
 
-public class CourseAssesmentService {
+public class CourseAssessmentService {
 }
