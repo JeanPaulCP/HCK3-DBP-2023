@@ -30,9 +30,9 @@ public class Course {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // FetchType.LAZY es para que no se cargue
     // toda la información de una vez en la BD cuando se haga el GET. Por ejemplo, si se hace un GET de un curso,
     // no se cargará toda la información de los periodos, solo se cargará la información del periodo que se pidió
-    @JoinTable(name = "coursetype_Course",
+    @JoinTable(name = "courseType_Course",
             joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "coursetype_id"))
+            inverseJoinColumns = @JoinColumn(name = "courseType_id"))
     private CourseType courseType;
     private String VRGroup;
 

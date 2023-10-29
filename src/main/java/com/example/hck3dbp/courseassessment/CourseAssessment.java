@@ -28,12 +28,12 @@ public class CourseAssessment {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // FetchType.LAZY es para que no se cargue
     // toda la información de una vez en la BD y CascadeType.ALL es para que se actualice la información en
     // todas las tablas que tengan relación con esta tabla
-    @JoinTable(name = "coursetype_Course",
+    @JoinTable(name = "courseAssessment_Course",
             joinColumns = @JoinColumn(name = "courseAssessment_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private Course course;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "coursetype_Course",
+    @JoinTable(name = "courseAssessment_Periodo",
             joinColumns = @JoinColumn(name = "courseAssessment_id"),
             inverseJoinColumns = @JoinColumn(name = "periodo_id"))
     private Periodo periodo;
