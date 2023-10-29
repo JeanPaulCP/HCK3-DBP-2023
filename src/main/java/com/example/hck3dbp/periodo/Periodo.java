@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.Period;
-import java.util.List;
 
 @Entity
 @Table(name = "periodo")
